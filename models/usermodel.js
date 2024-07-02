@@ -47,3 +47,5 @@ sequelize
       process.env.production ? "" : error
     );
   });
+
+module.exports = { User };

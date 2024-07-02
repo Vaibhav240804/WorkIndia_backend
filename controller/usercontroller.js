@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 const { User } = require("../models/usermodel");
+const jwt = require("jsonwebtoken");
 dotenv.config();
 
 const createUser = async (req, res) => {
@@ -55,8 +56,15 @@ const login = async (req, res) => {
       return res.status(400).send("Invalid credentials");
     }
 
-    const jwtSecretKey = process.env.jwtSecret;
+    const jwtSecretKey = process.env.jwtSecret || "KEY";
+    const token = jwt.sign({ uid: existing.dataValues.id }, jwtSecretKey, {
+      expiresIn: "1h",
+    });
 
+    return res.status(200).send({
+      message: "Login successful",
+      token: token,
+    });
 
   } catch (error) {
     return res.send(
@@ -67,4 +75,4 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { createUser };
+module.exports = { createUser, login };

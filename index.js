@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const { router } = require("./routes");
 dotenv.config();
 
 const cors = require("cors");
@@ -10,13 +11,12 @@ connectDB();
 
 app.use(cors());
 app.use(express.urlencoded());
+app.use(express.json());
 
-app.get("/", (req, res) => {
-  return res.send("HELLO");
-});
+app.use("/", router);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT,() => {
+app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });

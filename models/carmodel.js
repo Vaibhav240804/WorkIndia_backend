@@ -21,29 +21,42 @@ sequelize
     console.error("Unable to connect to the database: ", error);
   });
 
-const User = sequelize.define("User", {
-  Name: {
+const Car = sequelize.define("Car", {
+  category: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  UserName: {
+  model: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  Password: {
+  number_plate: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  rent_per_hr: {
+    type: DataTypes.DECIMAL,
+    allowNull: false,
+  },
+  current_city: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  rent_history: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
 });
 
 sequelize
   .sync()
   .then(() => {
-    console.log("User created successfully!");
+    console.log("entry successfully!");
   })
   .catch((error) => {
     console.error(
-      "Unable to create user : ",
+      "Unable to enter car details : ",
       process.env.production ? "" : error
     );
   });
+
